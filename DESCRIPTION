@@ -1,0 +1,11 @@
+Package: UBIquitous
+Title: A Package for Generation of Structured Reports
+Version: 0.0.0.9000
+Authors@R: person("Daniel", "Neves", email = "danielneves2005@gmail.com", role = c("aut", "cre"))
+Description: This package allows the user to create HTML reports by specifying a document structure.
+Depends: R (>= 3.4.3)
+License: To kill
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests: testthat

@@ -1,0 +1,141 @@
+---
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: 
+      collapsed: true
+    number_sections: false
+    theme: yeti
+params:
+  title: ""
+  author: ""
+  date: !r format(Sys.time(), '%d %B, %Y')
+  document: NULL
+  render_functions: NULL
+  render_section: NULL
+  number_sections: TRUE
+  debug: FALSE
+  out_html: ""
+title: "`r params$title`"
+author: "`r params$author`"
+date: "`r params$date`"
+---
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $items = $('div#TOC li');
+      $items.each(function(idx) {
+        num_ul = $(this).parentsUntil('#TOC').length;
+        $(this).css({'text-indent': num_ul * 10, 'padding-left': 0});
+      });
+
+    });
+</script>
+
+<style>
+.main-container {
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1500px;
+}
+
+div.tocify {
+  width: 40%;
+  max-width: 360px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+# knitr::opts_knit$set(root.dir = "..")
+```
+
+
+```{r results='asis'}
+if (params$debug) {
+  cat("# Debug\n")
+  cat("## Module structure\n")
+  cat("<pre>\n")
+  print(params$test)
+  cat("</pre>\n")
+}
+```
+
+
+```{r}
+# DEBUG:
+# cat(out, sep="\n")
+```
+
+
+```{r, results='asis'}
+cat('<div>',
+    params$out_html, 
+    '</div>',
+    sep="\n")
+```
+
+
+<!--
+<script type="text/javascript">
+  // When the document is fully rendered...
+  $(document).ready(function() {
+    // ...select all header elements...
+    $('h1, h2, h3, h4, h5').each(function() {
+      // ...and add an id to them corresponding to their 'titles'
+      $(this).attr('id', $(this).html());
+    });
+  });
+</script>
+-->
+
