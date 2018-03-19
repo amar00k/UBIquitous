@@ -14,7 +14,7 @@
 #' \code{\link{figure_chunk}} specifies a figure.
 #'
 #' @examples
-#'iris_section <- function(num.rows, colors) {
+#' iris_section <- function(num.rows, colors) {
 #'   tab1 <- table_chunk(head(iris, num.rows),
 #'                       title = "The iris dataset",
 #'                       description = paste("This table displays the first", num.rows, "rows of the iris dataset."))
