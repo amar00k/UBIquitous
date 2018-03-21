@@ -5,7 +5,7 @@
 \title{Figure chunk}
 \usage{
 figure_chunk(fun, title = "", description = "", width = 6, height = 5,
-  pdf.filename = NULL)
+  pdf.filename = NULL, collapsed = FALSE)
 }
 \arguments{
 \item{fun}{function to generate the figure.}

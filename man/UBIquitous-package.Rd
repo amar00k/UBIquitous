@@ -25,20 +25,22 @@ iris_section <- function(num.rows, colors) {
                       description = paste("This table displays the first", num.rows, "rows of the iris dataset."))
 
   fig1 <- figure_chunk(fun = function() {
-     pairs(iris)
+    pairs(iris, col=colors[ iris$Species ])
   }, title = "Pairs plot of iris", description = "")
 
-  section <- list(
-     title = "Iris",
-     description = "A section about the iris dataset.",
-     chunks = list(tab1, fig1),
-     par = extract_parameters()
+  par = extract_parameters()
+
+  section(
+    title = "Iris",
+    description = "A section about the iris dataset.",
+    chunks = list(tab1, fig1),
+    par = par
   )
 }
 
 sec1 <- iris_section(6, colors = c("red", "green", "blue"))
 document <- list(sections=list(sec1))
-render_document(document, output.dir = ".", output.file = "Example1.html")
+render_document(document, filename = "Example1.html")
 
 }
 \author{

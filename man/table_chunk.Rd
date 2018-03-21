@@ -4,7 +4,8 @@
 \alias{table_chunk}
 \title{Table chunk}
 \usage{
-table_chunk(dataframe, title = "", description = "", scrollX = FALSE)
+table_chunk(dataframe, title = "", description = "", scrollX = FALSE,
+  collapsed = FALSE)
 }
 \arguments{
 \item{dataframe}{the table to display.}
