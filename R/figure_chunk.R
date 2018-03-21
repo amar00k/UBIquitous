@@ -14,7 +14,7 @@
 #' @export
 #'
 #' @examples
-figure_chunk <- function(fun, title = "", description = "", width=6, height=5, pdf.filename=NULL) {
+figure_chunk <- function(fun, title = "", description = "", width=6, height=5, pdf.filename=NULL, collapsed = FALSE) {
   list(
     type = "figure",
     fun = fun,
@@ -22,7 +22,8 @@ figure_chunk <- function(fun, title = "", description = "", width=6, height=5, p
     width = width,
     height = height,
     description = description,
-    pdf.filename = pdf.filename
+    pdf.filename = pdf.filename,
+    collapsed = collapsed
   )
 }
 

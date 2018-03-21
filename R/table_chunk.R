@@ -6,17 +6,20 @@
 #' @param dataframe the table to display.
 #' @param title the title of the table.
 #' @param description description (or caption) of the table to be displayed right below the title.
+#' @param scrollX whether add a horizontal scrollbar to the table
 #'
 #' @return
 #' @export
 #'
 #' @examples
-table_chunk <- function(dataframe, title = "", description = "") {
+table_chunk <- function(dataframe, title = "", description = "", scrollX = FALSE, collapsed = FALSE) {
   list(
     type = "table",
     dataframe = dataframe,
     title = title,
-    description = description
+    description = description,
+    scrollX = scrollX,
+    collapsed = collapsed
   )
 }
 
@@ -66,10 +69,8 @@ render_table_chunk <- function(chunk, sec_path, header=TRUE, ...) { #{ chunk_num
 
   # download
   tabcon <- textConnection("encoded", "w")
-
   write.table(chunk$dataframe, file = tabcon, sep="\t", row.names=FALSE)
   close(tabcon)
-
   encoded <- openssl::base64_encode(paste(encoded, collapse="\n"))
 
   download_html <- paste0('<a href="', paste0('data:text/csv;base64,', encoded), '">Download</a>')
