@@ -85,6 +85,8 @@ render_figure_chunk <- function(chunk, sec_path, header=TRUE, ...) { #chunk_num,
     download_html <- ""
   }
 
+  div_class <- if (chunk$collapsed == FALSE) "collapse in" else "collapse"
+
   paste(
     title_html,
     paste0('<p> ', chunk$description , '</p>'),
@@ -93,7 +95,7 @@ render_figure_chunk <- function(chunk, sec_path, header=TRUE, ...) { #chunk_num,
     '</td><td style="text-align: right">',
     download_html,
     '</td></tr></table>',
-    paste0('<div id="', id, '" class="collapse in">'),
+    paste0('<div id="', id, '" class="', div_class,'">'),
     chunk_rmd,
     '</div>',
     sep="\n")
