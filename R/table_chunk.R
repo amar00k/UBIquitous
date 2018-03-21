@@ -59,10 +59,12 @@ render_table_chunk <- function(chunk, sec_path, header=TRUE, ...) { #{ chunk_num
     }
   }
 
-  table_html <- kable_styling(kable(chunk$dataframe, format="html"), bootstrap_options = bootstrap_options)
+  table_html <- kableExtra::kable_styling(
+    knitr::kable(chunk$dataframe, format="html"),
+    bootstrap_options = bootstrap_options)
 
   if (chunk$scrollX == TRUE) {
-    table_html <- scroll_box(table_html, width="100%")
+    table_html <- kableExtra::scroll_box(table_html, width="100%")
   }
 
   table_html <- paste(table_html, collapse="\n")
