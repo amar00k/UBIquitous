@@ -4,7 +4,7 @@
 \alias{table_chunk}
 \title{Table chunk}
 \usage{
-table_chunk(dataframe, title = "", description = "")
+table_chunk(dataframe, title = "", description = "", scrollX = FALSE)
 }
 \arguments{
 \item{dataframe}{the table to display.}
@@ -12,6 +12,8 @@ table_chunk(dataframe, title = "", description = "")
 \item{title}{the title of the table.}
 
 \item{description}{description (or caption) of the table to be displayed right below the title.}
+
+\item{scrollX}{whether add a horizontal scrollbar to the table}
 }
 \description{
 A table chunk displays a table. By default, the table will be generated using \code{\link{kable}} and \code{\link{kable_styling}}.
