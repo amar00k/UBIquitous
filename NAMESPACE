@@ -3,6 +3,7 @@
 export(extract_parameters)
 export(figure_chunk)
 export(file_chunk)
+export(gen_id)
 export(render_document)
 export(render_figure_chunk)
 export(render_file_chunk)
