@@ -1,5 +1,13 @@
 library(UBIquitous)
 
+test_that("gen_id returns unique ids", {
+  ids <- sapply(1:100, function(i) gen_id())
+
+  expect_equal(length(ids), 100)
+  expect_equal(class(ids), "numeric")
+  expect_true(all(duplicated(ids) == FALSE))
+})
+
 test_that("extract_params returns the right number of parameters", {
   par <- (function() extract_parameters())()
   expect_equal(length(par), 0)
