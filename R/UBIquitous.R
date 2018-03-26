@@ -41,6 +41,26 @@
 #' @name UBIquitous-package
 NULL
 
+######################
+# Internal functions #
+######################
+
+.ns.env <- new.env()
+assign("id", 0, envir=.ns.env)
+
+#' Generate a sequencial ID.
+#'
+#' @return An integer ID number guaranteed to by different from all previously generated IDs.
+#' @export
+#'
+#' @examples
+gen_id <- function() {
+  seqnum <- get("id", envir=.ns.env) + 1
+
+  assign("id", seqnum, envir=.ns.env)
+
+  return(seqnum)
+}
 
 ####################
 # Helper functions #
