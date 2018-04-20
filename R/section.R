@@ -77,10 +77,11 @@ source_section <- function(title, sourcename, funname, params=list(), descriptio
 #'
 #' @examples
 render_section_basic <- function(ns, depth, title, description, parameters, body) {
-  hx <- paste0("h", depth)
-  id <- paste0(ns, "_section")
+  num <- gen_id("section")
+  id <- paste0('section', num)
 
-  section_header <- paste0('<', hx, '>', title, '</', hx, '>')
+  # section_header <- paste0('<', hx, '>', title, '</', hx, '>')
+  section_header <- paste(paste(rep('#', depth), collapse=""), title)
 
   if (parameters != "") {
     pars_html <- paste(
@@ -95,12 +96,12 @@ render_section_basic <- function(ns, depth, title, description, parameters, body
   }
 
   panel_string <- paste(
-    '<div>',
+    #'<div>',
     section_header,
     pars_html,
     paste0('<p>', description, '</p>'),
     body,
-    '</div>',
+    #'</div>',
     sep="\n")
 }
 

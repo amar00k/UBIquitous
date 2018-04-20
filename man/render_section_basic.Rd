@@ -12,3 +12,7 @@ render_section_basic(ns, depth, title, description, parameters, body)
 \description{
 This is an internal function not meant to be called by the user.
 }
+\examples{
+<div>',
+</div>',
+}

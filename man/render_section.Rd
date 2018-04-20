@@ -4,8 +4,8 @@
 \alias{render_section}
 \title{Render a single section}
 \usage{
-render_section(section, chunk_functions_ex = NULL, section_functions = NULL,
-  title = "Untitled")
+render_section(section, title = "Untitled", depth = 1,
+  render_function = render_section_basic)
 }
 \arguments{
 \item{section}{a section (may contain subsections)}

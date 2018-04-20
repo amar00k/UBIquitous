@@ -12,6 +12,7 @@ Imports:
   knitr,
   kableExtra,
   rmarkdown,
-  openssl
+  openssl,
+  htmltools
 Suggests: 
   testthat

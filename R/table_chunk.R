@@ -34,30 +34,26 @@ table_chunk <- function(dataframe, title = "", description = "", scrollX = FALSE
 #'
 #' @examples
 render_table_chunk <- function(chunk, sec_path, header=TRUE, ...) { #{ chunk_num, ns, depth=2) {
-  require(knitr)
-  require(kableExtra)
-
   depth <- length(sec_path)
   ns <- paste(sec_path, collapse="_")
-  id <- paste0('table', ns)
+
+  #id <- paste0('table', ns)
+  num <- gen_id("table")
+  id <- paste0('table', num)
 
   chunk$title <- ifelse(is.null(chunk$title), "", chunk$title)
   chunk$description <- ifelse(is.null(chunk$description), "", chunk$description)
   chunk$scrollX <- ifelse(is.null(chunk$scrollX), FALSE, chunk$scrollX)
 
-  #bootstrap_options_str <- 'c("striped", "hover", "condensed", "responsive")'
-  bootstrap_options <- c("hover", "condensed", "responsive")
+  bootstrap_options <- c("responsive", "hover", "condensed")
 
-  title_html <- ""
-  if (chunk$title != "") {
-    hx <- paste0("h", depth)
-
-    if (header == TRUE) {
-      title_html <- paste0('<', hx, '> Table: ', chunk$title, '</', hx, '>')
-    } else {
-      title_html <- paste0('<div class="', hx, '"> Table: ', chunk$title, '</div>')
-    }
-  }
+  # if (chunk$title != "") {
+  #   # TODO: make a css style for the chunk titles instead of using hx
+  #   # title_html <- h4(paste0("Figure: ", chunk$title))
+  #   title_html <- div(class="h4", paste0("Table: ", chunk$title))
+  # } else {
+  #   title_html <- ""
+  # }
 
   table_html <- kableExtra::kable_styling(
     knitr::kable(chunk$dataframe, format="html"),
@@ -67,7 +63,7 @@ render_table_chunk <- function(chunk, sec_path, header=TRUE, ...) { #{ chunk_num
     table_html <- kableExtra::scroll_box(table_html, width="100%")
   }
 
-  table_html <- paste(table_html, collapse="\n")
+  # table_html <- paste(table_html, collapse="\n")
 
   # download
   tabcon <- textConnection("encoded", "w")
@@ -75,21 +71,57 @@ render_table_chunk <- function(chunk, sec_path, header=TRUE, ...) { #{ chunk_num
   close(tabcon)
   encoded <- openssl::base64_encode(paste(encoded, collapse="\n"))
 
-  download_html <- paste0('<a href="', paste0('data:text/csv;base64,', encoded), '">Download</a>')
+  download_html <- a(href=paste0('data:text/csv;base64,', encoded), download=paste0(id, ".csv") , "Download")
 
   div_class <- if (chunk$collapsed == FALSE) "collapse in" else "collapse"
 
-  paste(
-    title_html,
-    paste0('<p> ', chunk$description , '</p>'),
-    '<table style="width:100%"><tr><td style="text-align: left">',
-    paste0('<a href="#', id, '" data-toggle="collapse">Show/Hide</a>'),
-    '</td><td style="text-align: right">',
-    download_html,
-    '</td></tr></table>',
-    paste0('<div id="', id, '" class="', div_class,'">'),
-    table_html,
-    '</div>',
-    sep="\n")
+  if (!is.null(chunk$annotation)) {
+    annotation_html <- div(class="panel panel-warning",
+                           div(class="panel-heading", "Annotation"),
+                           div(class="panel-body", chunk$annotation))
+
+    table_html <- paste(table_html, annotation_html, sep="\n")
+  }
+
+  # paste(
+  #   title_html,
+  #   paste0('<p> ', chunk$description , '</p>'),
+  #   '<table style="width:100%"><tr><td style="text-align: left">',
+  #   paste0('<a href="#', id, '" data-toggle="collapse">Show/Hide</a>'),
+  #   '</td><td style="text-align: right">',
+  #   download_html,
+  #   '</td></tr></table>',
+  #   paste0('<div id="', id, '" class="', div_class,'">'),
+  #   table_html,
+  #   '</div>',
+  #   sep="\n")
+
+  if (chunk$description != "") {
+    label_html <- tags$p(tags$b(paste0("Table ", num, ": ", chunk$title, " | ")), HTML(chunk$description))
+  } else {
+    label_html <- tags$p(tags$b(paste0("Table ", num, ": ", chunk$title)))
+  }
+
+  div(class="panel panel-default",
+      div(class="panel-body",
+          HTML('<table style="width:100%"><tr><td style="text-align: left">'),
+          tags$a(href=paste0("#", id), "data-toggle"="collapse", "Show/Hide"),
+          HTML('</td><td style="text-align: right">'),
+          download_html,
+          HTML('</td></tr></table>'),
+          div(id=id, class=div_class,
+              HTML(table_html)),
+          label_html))
+
+  # div(class="panel panel-default",
+  #     div(class="panel-body",
+  #         tags$p(tags$b(paste0("Table: ", chunk$title, " | ")), HTML(chunk$description)),
+  #         HTML('<table style="width:100%"><tr><td style="text-align: left">'),
+  #         tags$a(href=paste0("#", id), "data-toggle"="collapse", "Show/Hide"),
+  #         HTML('</td><td style="text-align: right">'),
+  #         download_html,
+  #         HTML('</td></tr></table>'),
+  #         div(id=id, class=div_class,
+  #             HTML(table_html))))
 }
 

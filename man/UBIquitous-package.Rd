@@ -16,9 +16,7 @@ Chunks are displayable elements in a report (e.g. a table, a figure, a paragraph
 \code{\link{text_chunk}} specifies a piece of text.
 \code{\link{table_chunk}} specifies a table.
 \code{\link{figure_chunk}} specifies a figure.
-}
 
-\examples{
 iris_section <- function(num.rows, colors) {
   tab1 <- table_chunk(head(iris, num.rows),
                       title = "The iris dataset",
@@ -41,8 +39,8 @@ iris_section <- function(num.rows, colors) {
 sec1 <- iris_section(6, colors = c("red", "green", "blue"))
 document <- list(sections=list(sec1))
 render_document(document, filename = "Example1.html")
-
 }
+
 \author{
 Daniel Neves, \email{danielneves2005@gmail.com}
 }
