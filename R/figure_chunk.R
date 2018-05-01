@@ -101,8 +101,6 @@ render_figure_chunk <- function(chunk, sec_path, header=TRUE, ...) {
     download_html <- ""
   }
 
-  div_class <- if (chunk$collapsed == FALSE) "collapse in" else "collapse"
-
   if (!is.null(chunk$annotation)) {
     annotation_html <- div(class="panel panel-warning",
                            div(class="panel-heading", "Annotation"),
@@ -130,6 +128,29 @@ render_figure_chunk <- function(chunk, sec_path, header=TRUE, ...) {
   #   HTML('</td></tr></table>'),
   #   div(id=id, class=div_class, figure_html))
 
+  if (!is.null(chunk$ext.data)) {
+    ext_id <- paste0(id, "_ext")
+
+    ext_html <- lapply(1:length(chunk$ext.data), function(i) {
+      x <- chunk$ext.data[[i]]
+      x_id <- paste0(ext_id, "_", i)
+
+      if (x$type == "ext_table") {
+        render_ext_table(x_id, x$dataframe, x$title, x$description)
+      }
+    })
+    ext_html <- paste(ext_html, collapse="\n")
+
+    ext_html <- div(
+      #tags$a(href=paste0("#", ext_id), "data-toggle"="collapse", "Extended Data"),
+      div(id=ext_id, class="collapse in", tags$b("Extended figure data"), HTML(ext_html))
+    )
+  } else {
+    ext_html <- ""
+  }
+
+  div_class <- if (chunk$collapsed == FALSE) "collapse in" else "collapse"
+
   html_panel(
     tagList(
       HTML('<table style="width:100%"><tr><td style="text-align: left">'),
@@ -139,7 +160,8 @@ render_figure_chunk <- function(chunk, sec_path, header=TRUE, ...) {
       HTML('</td></tr></table>'),
       div(id=id, class=div_class,
           figure_html),
-      label_html))
+      label_html,
+      ext_html))
 
   # div(    HTML('<table style="width:100%"><tr><td style="text-align: left">'),
   #         tags$a(href=paste0("#", id), "data-toggle"="collapse", "Show/Hide"),

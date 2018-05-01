@@ -4,7 +4,7 @@
 \alias{gen_id}
 \title{Generate a sequencial ID.}
 \usage{
-gen_id()
+gen_id(type = "global")
 }
 \value{
 An integer ID number guaranteed to by different from all previously generated IDs.

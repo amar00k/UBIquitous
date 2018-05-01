@@ -1,7 +1,37 @@
 
 
-chunk_base <- function()
+# chunk_base <- function()
+encode_dataframe <- function(dataframe) {
+  tabcon <- textConnection("encoded", "w")
+  write.table(dataframe, file = tabcon, sep="\t", row.names=FALSE)
+  close(tabcon)
+  openssl::base64_encode(paste(encoded, collapse="\n"))
+}
 
+#' Title
+#'
+#' @param title
+#' @param dataframe
+#'
+#' @return
+#' @export
+#'
+#' @examples
+ext_table <-function(title, dataframe, description) {
+  list(
+    type="ext_table",
+    dataframe=dataframe,
+    title=title,
+    description=description
+  )
+}
+
+render_ext_table <- function(id, dataframe, title, description) {
+  encoded <- encode_dataframe(dataframe)
+
+  as.character(tags$li(tags$a(href=paste0('data:text/csv;base64,', encoded), download=paste0(id, ".csv") , title),
+          " : ", description))
+}
 
 #' Make an HTML link to a table.
 #'
@@ -83,7 +113,8 @@ run_system <- function(commands, log.basename, append=TRUE) {
 #' @examples
 run_system_parallel <- function(commands, log.basename, append=TRUE, max.cores=8) {
   # make sure commands are single lines
-  commands <- unlist(strsplit(commands, split="\n"))
+  # no: don't make sure! we might want multiple commands to run sequentially in a single thread
+  # commands <- unlist(strsplit(commands, split="\n"))
 
   # abort if commands is empty
   if (length(commands) == 0)
@@ -109,9 +140,9 @@ run_system_parallel <- function(commands, log.basename, append=TRUE, max.cores=8
 
     # write the commands to stdout and stderr files prefixed with +
     timestamp <- paste("+", date())
-
-    write(paste(timestamp, ":", x), tmp.stdout, append=TRUE)
-    write(paste(timestamp, ":", x), tmp.stderr, append=TRUE)
+    xsplit <- unlist(strsplit(x, split="\n"))
+    write(paste(timestamp, ":", xsplit), tmp.stdout, append=TRUE)
+    write(paste(timestamp, ":", xsplit), tmp.stderr, append=TRUE)
 
     # Run each command in the form:
     # $ (command) 1>> stdout 2>> stderr

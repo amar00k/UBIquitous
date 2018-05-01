@@ -24,3 +24,7 @@ html_nav_tabs <- function(id, tabnames, tabcontents) {
   paste(li, content, sep="\n")
 }
 
+html_show_hide <- function(id, label, content) {
+
+}
+

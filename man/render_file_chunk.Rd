@@ -2,9 +2,9 @@
 % Please edit documentation in R/file_chunk.R
 \name{render_file_chunk}
 \alias{render_file_chunk}
-\title{Default function to render a file chunk.}
+\title{Default function to render a table chunk.}
 \usage{
-render_file_chunk(chunk, sec_path, ...)
+render_file_chunk(chunk, sec_path, header = TRUE, ...)
 }
 \arguments{
 \item{chunk}{chunk definition.}
@@ -14,5 +14,5 @@ render_file_chunk(chunk, sec_path, ...)
 \item{header}{whether to treat title as a subsection header (and display it in the table of contents).}
 }
 \description{
-Default function to render a file chunk.
+Default function to render a table chunk.
 }

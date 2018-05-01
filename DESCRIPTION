@@ -14,5 +14,8 @@ Imports:
   rmarkdown,
   openssl,
   htmltools
-Suggests: 
-  testthat
+Suggests:
+  testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

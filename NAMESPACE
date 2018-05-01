@@ -2,6 +2,7 @@
 
 export(annotation_chunk)
 export(commands_chunk)
+export(ext_table)
 export(extract_parameters)
 export(figure_chunk)
 export(file_chunk)
