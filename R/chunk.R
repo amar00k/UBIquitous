@@ -98,6 +98,10 @@ run_system <- function(commands, log.basename, append=TRUE) {
     # $ (command) 1>> stdout 2>> stderr
     system(paste0("(", x, ")", " 1>> ", stdout.filename, " 2>> ", stderr.filename))
   })
+
+  list(commands.filename = commands.filename,
+       stdout.filename = stdout.filename,
+       stderr.filename = stderr.filename)
 }
 
 #' Run shell commands with logging
@@ -156,6 +160,10 @@ run_system_parallel <- function(commands, log.basename, append=TRUE, max.cores=8
     system(paste("cat", x$stdout, ">>", stdout.filename))
     system(paste("cat", x$stderr, ">>", stderr.filename))
   })
+
+  list(commands.filename = commands.filename,
+       stdout.filename = stdout.filename,
+       stderr.filename = stderr.filename)
 }
 
 
